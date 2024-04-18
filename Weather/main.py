@@ -1,3 +1,41 @@
+import requests
+from gtts import gTTS
+import json
+import os
+from playsound import playsound
+
+
+while True:
+
+    city = input('Enter city name: ')
+
+    url = f'https://api.weatherapi.com/v1/current.json?key=fba0f5a59db5414681e145343241804&q={city}'
+
+    r= requests.get(url)
+
+
+    if(city) == "nocity":
+        break
+
+
+
+
+
+    weatherdic = json.loads(r.text)
+    W =weatherdic["current"]["temp_c"]
+    F =weatherdic["current"]["wind_kph"]
+
+
+    mytext = f'The current TEmperature in {city} is {W}degree celcious And wind in kilometer per hour is {F}'
+    language = 'en'
+    myobj = gTTS(text=mytext, lang=language, slow=False)
+
+    myobj.save("welcome.mp3")
+    playsound("welcome.mp3")
+
+
+
+
 # import requests
 # from gtts import gTTS
 # import json
@@ -48,47 +86,3 @@
 #
 #
 #
-
-
-
-
-
-
-
-
-
-import requests
-from gtts import gTTS
-import json
-import os
-from playsound import playsound
-
-
-while True:
-
-    city = input('Enter city name: ')
-
-    url = f'https://api.weatherapi.com/v1/current.json?key=fba0f5a59db5414681e145343241804&q={city}'
-
-    r= requests.get(url)
-
-
-    if(city) == "nocity":
-        break
-
-
-
-
-
-    weatherdic = json.loads(r.text)
-    W =weatherdic["current"]["temp_c"]
-    F =weatherdic["current"]["wind_kph"]
-
-
-    mytext = f'The current TEmperature in {city} is {W}degree celcious And wind in kilometer per hour is {F}'
-    language = 'en'
-    myobj = gTTS(text=mytext, lang=language, slow=False)
-
-    myobj.save("welcome.mp3")
-    playsound("welcome.mp3")
-
